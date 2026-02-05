@@ -2,7 +2,6 @@ using ApiClientes.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiClientes.Infrastructure.Data;
-
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Cliente> Clientes { get; set; }

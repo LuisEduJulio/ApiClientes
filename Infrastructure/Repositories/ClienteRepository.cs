@@ -4,43 +4,38 @@ using ApiClientes.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiClientes.Infrastructure.Repositories;
-public class ClienteRepository(AppDbContext context) : IClienteRepository
+
+public class ClienteRepository : IClienteRepository
 {
-    private readonly AppDbContext _context = context;
+    private readonly AppDbContext _context;
+
+    public ClienteRepository(AppDbContext context)
+    {
+        _context = context;
+    }
+
     public async Task<Cliente?> ObterPorIdAsync(int id)
     {
         return await _context.Clientes.FindAsync(id);
     }
-    public async Task<Cliente?> ObterPorEmailAsync(string email)
-    {
-        return await _context.Clientes
-            .FirstOrDefaultAsync(c => c.Email.ToLower() == email.ToLower());
-    }
+
     public async Task<bool> ExisteEmailAsync(string email)
     {
         return await _context.Clientes
             .AnyAsync(c => c.Email.ToLower() == email.ToLower());
     }
+
     public async Task<IEnumerable<Cliente>> ListarTodosAsync()
     {
         return await _context.Clientes
             .OrderBy(c => c.Nome)
             .ToListAsync();
     }
+
     public async Task<Cliente> AdicionarAsync(Cliente cliente)
     {
         await _context.Clientes.AddAsync(cliente);
         await _context.SaveChangesAsync();
         return cliente;
-    }
-    public async Task AtualizarAsync(Cliente cliente)
-    {
-        _context.Clientes.Update(cliente);
-        await _context.SaveChangesAsync();
-    }
-    public async Task RemoverAsync(Cliente cliente)
-    {
-        _context.Clientes.Remove(cliente);
-        await _context.SaveChangesAsync();
     }
 }

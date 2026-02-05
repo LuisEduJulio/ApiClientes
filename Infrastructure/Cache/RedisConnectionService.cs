@@ -5,7 +5,8 @@ namespace ApiClientes.Infrastructure.Cache;
 
 public static class RedisConnectionService
 {
-    public static IConnectionMultiplexer ConnectWithRetry(string connectionString, ILogger logger, int maxRetries = 10, int delaySeconds = 5)
+    public static IConnectionMultiplexer ConnectWithRetry(string connectionString, 
+        ILogger logger, int maxRetries = 10, int delaySeconds = 5)
     {
         var retryCount = 0;
         

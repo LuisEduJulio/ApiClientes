@@ -2,7 +2,6 @@ using System.Net;
 using System.Text.Json;
 
 namespace ApiClientes.Infrastructure.Middleware;
-
 public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
 {
     private readonly RequestDelegate _next = next;
