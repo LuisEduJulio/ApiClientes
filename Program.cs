@@ -19,7 +19,7 @@ builder.Services.AddControllers()
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=clientes.db"));
 
-var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+var redisConnectionString = builder.Configuration.GetConnectionString("Redis") ?? string.Empty;
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
@@ -45,7 +45,7 @@ builder.Services.AddSwaggerGen(c =>
             Email = "contato@example.com"
         }
     });
-    
+
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
@@ -70,7 +70,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    
+
     try
     {
         await DatabaseInitializer.InitializeAsync(db, logger);
