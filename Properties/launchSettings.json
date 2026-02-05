@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "ApiClientes": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionStrings__Redis": "localhost:6379"
+      },
+      "applicationUrl": "http://localhost:5000"
+    },
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchUrl": "http://localhost:8080/swagger",
+      "commandVersion": "1.0",
+      "serviceName": "api",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dockerComposeFile": "docker-compose.yml"
+    }
+  }
+}
